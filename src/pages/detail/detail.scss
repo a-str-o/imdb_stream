@@ -1,9 +1,400 @@
 @use "../../scss/" as *;
+
+// Enhanced Watch Controls
+.watch-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    
+    @include mobile {
+        padding: 1.5rem;
+        gap: 1.2rem;
+    }
+}
+
+.control-row {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-end;
+    
+    @include mobile {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+.control-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 200px;
+    
+    @include mobile {
+        min-width: 100%;
+    }
+}
+
+.control-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+}
+
+.season-select, .episode-select {
+    padding: 0.875rem 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    color: $white;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+    
+    &:hover {
+        border-color: #DA8255;
+        background: rgba(218, 130, 85, 0.15);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(218, 130, 85, 0.2);
+    }
+    
+    &:focus {
+        border-color: #DA8255;
+        box-shadow: 0 0 0 3px rgba(218, 130, 85, 0.25);
+    }
+    
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.25rem;
+    padding-right: 3.5rem;
+    
+    @include mobile {
+        padding: 0.75rem 0.9rem;
+        padding-right: 3rem;
+        font-size: 0.9rem;
+    }
+}
+
+.season-select option, .episode-select option {
+    background: #1a1a1a;
+    color: $white;
+    padding: 0.5rem;
+}
+
+// Navigation Row
+.navigation-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    @include mobile {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+}
+
+.nav-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #DA8255 0%, #B86F3E 100%);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 120px;
+    
+    &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(218, 130, 85, 0.4);
+        background: linear-gradient(135deg, #E09266 0%, #C67F4A 100%);
+    }
+    
+    &:active:not(:disabled) {
+        transform: translateY(0);
+    }
+    
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    @include mobile {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+        min-width: 100px;
+    }
+}
+
+.prev-btn {
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+    
+    &:hover:not(:disabled) {
+        background: linear-gradient(135deg, #5BA0F2 0%, #458ACD 100%);
+        box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+    }
+}
+
+.next-btn {
+    background: linear-gradient(135deg, #5CB85C 0%, #449D44 100%);
+    
+    &:hover:not(:disabled) {
+        background: linear-gradient(135deg, #6CC86C 0%, #54AD54 100%);
+        box-shadow: 0 6px 20px rgba(92, 184, 92, 0.4);
+    }
+}
+
+.current-episode {
+    flex: 1;
+    text-align: center;
+    padding: 1rem;
+    background: rgba(218, 130, 85, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(218, 130, 85, 0.2);
+    
+    @include mobile {
+        width: 100%;
+    }
+}
+
+.episode-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.episode-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #DA8255;
+    letter-spacing: 1px;
+    
+    @include mobile {
+        font-size: 1.1rem;
+    }
+}
+
+.episode-progress {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    
+    @include mobile {
+        font-size: 0.8rem;
+    }
+}
+
+// Quick Actions
+.quick-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    
+    @include mobile {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+}
+
+.quick-action-btn {
+    padding: 0.6rem 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-1px);
+    }
+    
+    @include mobile {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+        text-align: center;
+    }
+}
+
+// Responsive improvements
+@media (max-width: 768px) {
+    .watch-controls {
+        padding: 1.25rem;
+    }
+    
+    .navigation-row {
+        order: 2;
+    }
+    
+    .control-row {
+        order: 1;
+    }
+    
+    .quick-actions {
+        order: 3;
+    }
+}
+
+// Legacy styles for compatibility
+.current-selection {
+    padding: 1rem;
+    background: rgba(218, 130, 85, 0.1);
+    border: 1px solid rgba(218, 130, 85, 0.3);
+    border-radius: $border-radius;
+    text-align: center;
+    
+    @include mobile {
+        padding: 0.75rem;
+    }
+}
+
+.selection-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #DA8255;
+    
+    @include mobile {
+        font-size: 0.9rem;
+    }
+}
+
+// Legacy styles for compatibility
+.seasons-container {
+    margin-bottom: 2rem;
+    
+    .seasons-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: $white;
+        font-weight: 600;
+    }
+    
+    .seasons-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+        
+        @include mobile {
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.5rem;
+        }
+    }
+}
+
+.episodes-container {
+    margin-bottom: 2rem;
+    
+    .episodes-title {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: $white;
+        font-weight: 600;
+    }
+    
+    .episodes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 0.5rem;
+        max-height: 300px;
+        overflow-y: auto;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: $border-radius;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        
+        @include mobile {
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 0.4rem;
+            max-height: 250px;
+            padding: 0.75rem;
+        }
+        
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        &::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            
+            &:hover {
+                background: rgba(255, 255, 255, 0.5);
+            }
+        }
+    }
+}
+
+.season-btn, .episode-btn {
+    padding: 0.75rem 1rem;
+    border: 2px solid $white;
+    border-radius: $border-radius;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: $white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    
+    &:hover {
+        background-color: rgba(218, 130, 85, 0.8);
+        border-color: #DA8255;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(218, 130, 85, 0.3);
+    }
+    
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.episode-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .season {
     margin-top: 20px;
     margin-left: 5px;
     margin-bottom: 50px;
 }
+
 .ep {
     margin: 5px; 
 }

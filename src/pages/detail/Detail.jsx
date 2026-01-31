@@ -78,37 +78,97 @@ const Detail = () => {
                                         frameborder="0" allowfullscreen="true" />
                                     : 
                                     <div>
-                                         <div className="genres movie-content__info">
-                                            {
-                                                item && item?.number_of_seasons
-                                                ? 
-                                                Array(item?.number_of_seasons).fill(null).map((item, idx) => (
-                                                        <span className="genres__item movie-content__info" key={idx} onClick={() => setnumberSe(idx + 1)} style={{backgroundColor : numberSe === (idx + 1) ? '#DA8255' : 'transparent'}}>season {idx + 1}</span>
-                                                    ))
-                                                : 
-                                                null
-                                            }
-                                        </div>
-                                        <div className="genres movie-content__info season">
-                                            {
-                                                item && item?.seasons
-                                                ? 
-                                                Array( item.next_episode_to_air?.season_number === numberSe ? (item.next_episode_to_air.episode_number - 1) : 
-                                                item?.seasons[numberSe]?.episode_count).fill(null).map((item, idx) => 
-                                                (
-                                                    <>
-                                                    <span className="genres__item ep" key={idx} onClick={() => setNumberEp(idx + 1)} style={{backgroundColor : numberEp === (idx + 1) ? '#DA8255' : 'transparent'}}>
-                                                        ep{idx + 1}
+                                        <div className="watch-controls">
+                                            <div className="control-row">
+                                                <div className="control-group">
+                                                    <label className="control-label">Season</label>
+                                                    <select 
+                                                        className="season-select" 
+                                                        value={numberSe} 
+                                                        onChange={(e) => setnumberSe(parseInt(e.target.value))}
+                                                    >
+                                                        {
+                                                            item && item?.number_of_seasons
+                                                            ? 
+                                                            Array(item?.number_of_seasons).fill(null).map((item, idx) => (
+                                                                    <option key={idx} value={idx + 1}>
+                                                                        Season {idx + 1}
+                                                                        {item?.seasons?.[idx + 1]?.episode_count ? ` (${item.seasons[idx + 1].episode_count} episodes)` : ''}
+                                                                    </option>
+                                                                ))
+                                                            : 
+                                                            null
+                                                        }
+                                                    </select>
+                                                </div>
+                                                
+                                                <div className="control-group">
+                                                    <label className="control-label">Episode</label>
+                                                    <select 
+                                                        className="episode-select" 
+                                                        value={numberEp} 
+                                                        onChange={(e) => setNumberEp(parseInt(e.target.value))}
+                                                    >
+                                                        {
+                                                            item && item?.seasons
+                                                            ? 
+                                                            Array( item.next_episode_to_air?.season_number === numberSe ? (item.next_episode_to_air.episode_number - 1) : 
+                                                            item?.seasons[numberSe]?.episode_count).fill(null).map((item, idx) => 
+                                                            (
+                                                                <option key={idx} value={idx + 1}>
+                                                                    Episode {idx + 1}
+                                                                </option>
+                                                                ))
+                                                            : 
+                                                            null
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="navigation-row">
+                                                <button 
+                                                    className="nav-btn prev-btn" 
+                                                    onClick={() => {
+                                                        if (numberEp > 1) {
+                                                            setNumberEp(numberEp - 1);
+                                                        } else if (numberSe > 1) {
+                                                            const prevSeasonEpisodes = item?.seasons[numberSe - 1]?.episode_count || 1;
+                                                            setnumberSe(numberSe - 1);
+                                                            setNumberEp(prevSeasonEpisodes);
+                                                        }
+                                                    }}
+                                                    disabled={numberSe === 1 && numberEp === 1}
+                                                >
+                                                    ← Previous
+                                                </button>
+                                                
+                                                <div className="current-episode">
+                                                    <div className="episode-info">
+                                                        <span className="episode-title">S{String(numberSe).padStart(2, '0')}E{String(numberEp).padStart(2, '0')}</span>
+                                                        <span className="episode-progress">
+                                                            Episode {numberEp} of {item?.seasons[numberSe]?.episode_count || '?'}
                                                         </span>
-                                                        {(idx>9 && idx % 10 === 0) ? <><br/><br/></> : null}
-                                                    </>
-                                                    
-                                                    ))
-                                                : 
-                                                null
-                                            }
+                                                    </div>
+                                                </div>
+                                                
+                                                <button 
+                                                    className="nav-btn next-btn" 
+                                                    onClick={() => {
+                                                        const currentSeasonEpisodes = item?.seasons[numberSe]?.episode_count || 1;
+                                                        if (numberEp < currentSeasonEpisodes) {
+                                                            setNumberEp(numberEp + 1);
+                                                        } else if (numberSe < item?.number_of_seasons) {
+                                                            setnumberSe(numberSe + 1);
+                                                            setNumberEp(1);
+                                                        }
+                                                    }}
+                                                    disabled={numberSe === item?.number_of_seasons && numberEp === (item?.seasons[numberSe]?.episode_count || 1)}
+                                                >
+                                                    Next →
+                                                </button>
+                                            </div>
                                         </div>
-
                                         <iframe id="ifr" title={`ifr-${id}`} src={`https://v2.vidsrc.me/embed/${item.id}/${numberSe + '-' + numberEp}`} width="100%" height="700" 
                                           allow-forms="true"
                                           allow-pointer-lock="true"
