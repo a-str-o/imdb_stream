@@ -46,6 +46,14 @@ const tmdbApi = {
         const url = category[cate] + '/' + id + '/similar';
         return axiosClient.get(url, {params: {}});
     },
+    getGenres: (cate) => {
+        const url = 'genre/' + category[cate] + '/list';
+        return axiosClient.get(url, {params: {}});
+    },
+    discover: (cate, params) => {
+        const url = 'discover/' + category[cate];
+        return axiosClient.get(url, params);
+    },
 }
 
 export default tmdbApi;

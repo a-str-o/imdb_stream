@@ -35,4 +35,47 @@
             top: 1px;
         }
     }
+
+    &__filters {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+        width: 100%;
+
+        @include mobile {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    }
+
+    &__filter {
+        flex: 1;
+        width: 100%;
+    }
+
+    &__filter-select {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        cursor: pointer;
+        outline: none;
+        transition: all 0.3s ease;
+
+        &:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        &:focus {
+            border-color: $main-color;
+        }
+
+        option {
+            background-color: #1a1a1a;
+            color: white;
+        }
+    }
 }
