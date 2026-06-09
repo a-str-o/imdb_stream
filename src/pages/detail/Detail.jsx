@@ -68,8 +68,8 @@ const Detail = () => {
                                 <h2>Watch :</h2>
                                 {
                                     category === "movie" ?
-                                        <iframe id="ifr" title={`ifr-${id}`} 
-                                        src={`https://v2.vidsrc.me/embed/${item.imdb_id}/`} width="100%" height="700" 
+                                        <iframe id="ifr" title={`ifr-${id}`} key={`movie-${item.id}`}
+                                        src={`https://vidsrc.sbs/embed/movie/${item.id}`} width="100%" height="700"
                                         allow-forms="true"
                                         allow-pointer-lock="true"
                                         allow-same-origin="true"
@@ -169,7 +169,7 @@ const Detail = () => {
                                                 </button>
                                             </div>
                                         </div>
-                                        <iframe id="ifr" title={`ifr-${id}`} src={`https://v2.vidsrc.me/embed/${item.id}/${numberSe + '-' + numberEp}`} width="100%" height="700" 
+                                        <iframe id="ifr" title={`ifr-${id}`} key={`tv-${item.id}-${numberSe}-${numberEp}`} src={`https://vidsrc.sbs/embed/tv/${item.id}/${numberSe}/${numberEp}`} width="100%" height="700"
                                           allow-forms="true"
                                           allow-pointer-lock="true"
                                           allow-same-origin="true"
