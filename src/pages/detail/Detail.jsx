@@ -74,7 +74,6 @@ const Detail = () => {
                                         allow-pointer-lock="true"
                                         allow-same-origin="true"
                                         allow-scripts="true"
-                                        allow-top-navigation="true"
                                         frameborder="0" allowfullscreen="true" />
                                     : 
                                     <div>
@@ -174,7 +173,6 @@ const Detail = () => {
                                           allow-pointer-lock="true"
                                           allow-same-origin="true"
                                           allow-scripts="true"
-                                          allow-top-navigation="true"
                                           frameborder="0" allowfullscreen="true"/>
                                     </div>
                                 }
